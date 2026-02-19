@@ -3,13 +3,14 @@ import time
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy
+import constants as c
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 #setting up simulation world
 #gravity
-p.setGravity(0,0,-9.8)
+p.setGravity(0,0,c.gravity)
 #floor
 planeId = p.loadURDF("plane.urdf")
 #robot
@@ -20,10 +21,10 @@ p.loadSDF("world.sdf")
 
 pyrosim.Prepare_To_Simulate(robotId)
 #vector to store touch values
-backLegSensorValues = numpy.zeros(1000)
-frontLegSensorValues = numpy.zeros(1000)
+backLegSensorValues = numpy.zeros(c.simLength)
+frontLegSensorValues = numpy.zeros(c.simLength)
 #running simulation world for a few seconds
-for i in range(1000):
+for i in range(c.simLength):
     p.stepSimulation()
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
