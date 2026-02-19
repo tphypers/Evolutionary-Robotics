@@ -1,6 +1,29 @@
+import numpy
+import math
+import random
+
 #constants
 
-gravity = -9.8
-simLength = 1000
+#gravity
+GRAVITY = -9.8
+#length of simulation
+SIM_LENGTH = 1000
 
+
+
+#------Motor control------
+#range of motion
+TAU = 2 * math.pi
+#amplitude 
+FRONT_AMPLITUDE = math.pi/4
+BACK_AMPLITUDE = math.pi/4
+#frequency
+FRONT_FREQUENCY = 10
+BACK_FREQUENCY = 10
+#phase offset
+FRONT_PHASE_OFFSET = 0
+BACK_PHASE_OFFSET = .75
+#maximum force
+FRONT_FORCE = 30
+BACK_FORCE = 30
 
