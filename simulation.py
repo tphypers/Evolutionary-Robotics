@@ -21,10 +21,11 @@ class SIMULATION:
         for step in range(c.SIM_LENGTH):
             p.stepSimulation()
             self.robot.sense(step)
+            self.robot.think(step)
             self.robot.act(step)
             time.sleep(1/60)
-            '''
-           '''
+            
+           
 
 #destructors
     def __del__(self):
