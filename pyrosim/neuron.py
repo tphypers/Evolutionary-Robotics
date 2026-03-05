@@ -1,4 +1,5 @@
 import math
+from multiprocessing import allow_connection_pickling
 
 import pybullet
 
@@ -69,9 +70,18 @@ class NEURON:
     def Update_Sensor_Neuron(self):
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
 
-    def Update_Hidden_Or_Motor_Neuron(self):
+    def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0)
-                                     
+        self.Print_Value()
+        for synapse in synapses:
+            if self.Get_Name() == synapse[1]:
+                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[synapse].Get_Weight(), neurons[synapse[0]].Get_Value())
+        self.Threshold()
+        
+
+    def Allow_Presynaptic_Neuron_To_Influence_Me(self, Synaptic_Weight, Presynaptic_Neuron_Value):
+        self.Add_To_Value(Presynaptic_Neuron_Value * Synaptic_Weight)
+                      
 
 # -------------------------- Private methods -------------------------
 
