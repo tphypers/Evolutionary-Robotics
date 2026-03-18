@@ -6,8 +6,10 @@ import random
 
 #gravity
 GRAVITY = -9.8
-#length of simulation
-SIM_LENGTH = 300
+#length of each simulation
+SIM_LENGTH = 1000
+#number of generations
+GENERATIONS = 10
 
 
 

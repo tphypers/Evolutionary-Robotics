@@ -14,6 +14,12 @@ class ROBOT:
         #connect to neural network
         self.nn = NEURAL_NETWORK("brain.nndf")
 
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robot,0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        with open("C:\\Users\\26jtm\\source\\repos\\Evolutionary-Robotics\\fitness.txt", "w") as f:
+            f.write(str(xCoordinateOfLinkZero))
 
     def prepare_to_sense(self):
         self.sensors = {}
@@ -42,7 +48,7 @@ class ROBOT:
 
     def think(self, step):
         self.nn.Update()
-        self.nn.Print()
+        #self.nn.Print()
 
 
 

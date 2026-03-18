@@ -19,14 +19,14 @@ class NEURAL_NETWORK:
         f.close()
 
     def Print(self):
+        pass
+        #self.Print_Sensor_Neuron_Values()
 
-        self.Print_Sensor_Neuron_Values()
+        #self.Print_Hidden_Neuron_Values()
 
-        self.Print_Hidden_Neuron_Values()
+        #self.Print_Motor_Neuron_Values()
 
-        self.Print_Motor_Neuron_Values()
-
-        print("")
+        #print("")
 
     def Update(self):
         for neuronName in self.neurons:
@@ -86,37 +86,37 @@ class NEURAL_NETWORK:
         return "synapse" in line
 
     def Print_Sensor_Neuron_Values(self):
+        pass
+        #print("sensor neuron values: " , end = "" )
 
-        print("sensor neuron values: " , end = "" )
+        #for neuronName in sorted(self.neurons):
 
-        for neuronName in sorted(self.neurons):
+            #if self.neurons[neuronName].Is_Sensor_Neuron():
 
-            if self.neurons[neuronName].Is_Sensor_Neuron():
+                #self.neurons[neuronName].Print()
 
-                self.neurons[neuronName].Print()
-
-        print("")
+        #print("")
 
     def Print_Hidden_Neuron_Values(self):
+        pass
+        #print("hidden neuron values: " , end = "" )
 
-        print("hidden neuron values: " , end = "" )
+        #for neuronName in sorted(self.neurons):
 
-        for neuronName in sorted(self.neurons):
+            #if self.neurons[neuronName].Is_Hidden_Neuron():
 
-            if self.neurons[neuronName].Is_Hidden_Neuron():
+                #self.neurons[neuronName].Print()
 
-                self.neurons[neuronName].Print()
-
-        print("")
+        #print("")
 
     def Print_Motor_Neuron_Values(self):
+        pass
+        #print("motor neuron values: " , end = "" )
 
-        print("motor neuron values: " , end = "" )
+        #for neuronName in sorted(self.neurons):
 
-        for neuronName in sorted(self.neurons):
+            #if self.neurons[neuronName].Is_Motor_Neuron():
 
-            if self.neurons[neuronName].Is_Motor_Neuron():
+                #self.neurons[neuronName].Print()
 
-                self.neurons[neuronName].Print()
-
-        print("")
+        #print("")
