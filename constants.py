@@ -7,7 +7,7 @@ import random
 #gravity
 GRAVITY = -9.8
 #length of simulation
-SIM_LENGTH = 1000
+SIM_LENGTH = 300
 
 
 
