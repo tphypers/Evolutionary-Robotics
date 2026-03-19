@@ -2,20 +2,43 @@ import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
 import random
+import time
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, ID):
         self.weights = np.random.rand(3, 2)
         self.weights = self.weights * 2 - 1
+        self.myID = ID
     
-    def Evaluate(self, directOrGUI):
+    #def Evaluate(self, directOrGUI):
+        #self.Create_World()
+        #self.Create_Body()
+        #self.Create_Brain()
+        #os.system('start /B python3 simulate.py ' + directOrGUI + ' '+ str(self.myID))
+        
+    def Wait_For_Simulation_To_End(self):
+        fitnessFile = f"fitness{self.myID}.txt"
+        while not os.path.exists(fitnessFile):
+            time.sleep(0.01) 
+        while os.stat(fitnessFile).st_size == 0:
+            time.sleep(0.01)
+        with open(fitnessFile, "r") as f:
+            content = f.read()
+            if content == "":
+                time.sleep(0.1)
+                return self.Wait_For_Simulation_To_End()
+            self.fitness = float(content)
+        os.system(f"del {fitnessFile}")
+
+    def Start_Simulation(self, directOrGUI):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system(f'python3 simulate.py {directOrGUI}')
-        with open("C:\\Users\\26jtm\\source\\repos\\Evolutionary-Robotics\\fitness.txt") as fitnessFile:
-            self.fitness = float(fitnessFile.read())
-    
+        os.system('start /B python simulate.py ' + directOrGUI + ' '+ str(self.myID))
+            
+    def SetID(self, ID):
+        self.myID = ID
+
     def Mutate(self):
         row = random.randint(0,2)
         column = random.randint(0,1)
@@ -38,7 +61,7 @@ class SOLUTION:
 
     def Create_Brain(self):
         #intialize neural network
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
         #sensor neurons
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")

@@ -10,6 +10,8 @@ GRAVITY = -9.8
 SIM_LENGTH = 1000
 #number of generations
 GENERATIONS = 10
+#population size
+POPULATION_SIZE = 20
 
 
 
