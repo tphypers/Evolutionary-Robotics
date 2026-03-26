@@ -18,6 +18,7 @@ POPULATION_SIZE = 10
 #------Motor control------
 #range of motion
 TAU = 2 * math.pi
+motorJointRange = .5
 #amplitude 
 FRONT_AMPLITUDE = math.pi/4
 BACK_AMPLITUDE = math.pi/4
@@ -32,5 +33,5 @@ FRONT_FORCE = 100
 BACK_FORCE = 100
 
 #---BRAIN----
-numSensorNeurons = 9
+numSensorNeurons = 4
 numMotorNeurons = 8
