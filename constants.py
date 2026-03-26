@@ -11,7 +11,7 @@ SIM_LENGTH = 1000
 #number of generations
 GENERATIONS = 10
 #population size
-POPULATION_SIZE = 20
+POPULATION_SIZE = 10
 
 
 
@@ -31,3 +31,6 @@ BACK_PHASE_OFFSET = .75
 FRONT_FORCE = 100
 BACK_FORCE = 100
 
+#---BRAIN----
+numSensorNeurons = 9
+numMotorNeurons = 8
