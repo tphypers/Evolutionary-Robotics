@@ -53,23 +53,51 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name=f"Torso", pos=[0,0,1] , size=[1,1,1])
-        pyrosim.Send_Cube(name=f"BackLeg", pos=[0,-.5,0] , size=[.2,1,.2])
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0,-.5,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name=f"FrontLeg", pos=[0,.5,0] , size=[.2,1,.2])
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0,.5,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name=f"LeftLeg", pos=[-.5,0,0] , size=[1,.2,.2])
-        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name=f"RightLeg", pos=[.5,0,0] , size=[1,.2,.2])
-        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
-        pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [0,1,0], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name=f"Torso", pos=[0,0,1] , size=[2,1,.5])
+
+        ### back right
+        pyrosim.Send_Cube(name=f"BackLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [-1,-.5,1], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name=f"BackLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
-        pyrosim.Send_Joint( name = "BackLeg_BackLowerLeg" , parent= "BackLeg" , child = "BackLowerLeg" , type = "revolute", position = [0,-1,0], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "BackLeg_BackLowerLeg" , parent= "BackLeg" , child = "BackLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        
+        ### back left
+        pyrosim.Send_Cube(name=f"LeftLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-1,.5,1], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name=f"LeftLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
         pyrosim.Send_Joint( name = "LeftLeg_LeftLowerLeg" , parent= "LeftLeg" , child = "LeftLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        
+        ### front left
+        pyrosim.Send_Cube(name=f"FrontLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
+        pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        
+        ### front right
+        pyrosim.Send_Cube(name=f"RightLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [1,-.5,1], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
-        pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        
+        ### neck base
+        pyrosim.Send_Cube(name=f"NeckBase", pos=[0,0,.5], size=[.1,.1,1])
+        pyrosim.Send_Joint( name = "Torso_NeckBase" , parent= "Torso" , child = "NeckBase" , type = "revolute", position = [.75, 0, 1], jointAxis = "0 1 1")
+
+        ### neck arm
+        pyrosim.Send_Cube(name=f"NeckArm", pos=[.5,0,0], size=[1,.1,.1])
+        pyrosim.Send_Joint( name = "NeckBase_NeckArm", parent= "NeckBase" , child = "NeckArm" , type = "revolute", position = [0, 0, 1], jointAxis = "1 1 0")
+
+        ### GRABBER
+        #center
+        pyrosim.Send_Cube(name=f"GrabberCenter", pos=[0,0,0], size=[.1,1,.1])
+        pyrosim.Send_Joint( name = "NeckArm_GrabberCenter", parent= "NeckArm", child = "GrabberCenter", type = "revolute", position = [1, 0, 0], jointAxis ="0 1 0")
+        #left
+        pyrosim.Send_Cube(name=f"GrabberRight", pos=[.5,0,0], size=[1,.1,.1])
+        pyrosim.Send_Joint( name = "GrabberCenter_GrabberRight", parent= "GrabberCenter", child = "GrabberRight", type = "revolute", position = [0, -.5, 0], jointAxis ="0 0 1")
+        #right
+        pyrosim.Send_Cube(name=f"GrabberLeft", pos=[.5,0,0], size=[1,.1,.1])
+        pyrosim.Send_Joint( name = "GrabberCenter_GrabberLeft", parent= "GrabberCenter", child = "GrabberLeft", type = "revolute", position = [0, .5, 0], jointAxis ="0 0 1")
+        
         pyrosim.End()
 
     def Create_Brain(self):
@@ -82,20 +110,28 @@ class SOLUTION:
         #pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
         #pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
         #pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
-        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "FrontLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LeftLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "RightLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "FrontLowerLeg") ### front left
+        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLowerLeg") ### back right
+        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LeftLowerLeg") ### back left
+        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "RightLowerLeg") ### front right
+        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "GrabberRight") ### right grabber
+        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "GrabberLeft") ### left grabber
+
 
         #motor neurons
-        pyrosim.Send_Motor_Neuron(name = 4 , jointName = "Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron(name = 5 , jointName = "Torso_FrontLeg")
-        pyrosim.Send_Motor_Neuron(name = 6 , jointName = "Torso_LeftLeg")
-        pyrosim.Send_Motor_Neuron(name = 7 , jointName = "Torso_RightLeg")
-        pyrosim.Send_Motor_Neuron(name = 8 , jointName = "FrontLeg_FrontLowerLeg")
-        pyrosim.Send_Motor_Neuron(name = 9 , jointName = "BackLeg_BackLowerLeg")
-        pyrosim.Send_Motor_Neuron(name = 10 , jointName = "LeftLeg_LeftLowerLeg")
-        pyrosim.Send_Motor_Neuron(name = 11 , jointName = "RightLeg_RightLowerLeg")
+        pyrosim.Send_Motor_Neuron(name = 6 , jointName = "Torso_BackLeg") ### back right
+        pyrosim.Send_Motor_Neuron(name = 7 , jointName = "Torso_FrontLeg") ### front left
+        pyrosim.Send_Motor_Neuron(name = 8 , jointName = "Torso_LeftLeg") ### back left
+        pyrosim.Send_Motor_Neuron(name = 9 , jointName = "Torso_RightLeg") ### front right
+        pyrosim.Send_Motor_Neuron(name = 10 , jointName = "FrontLeg_FrontLowerLeg") ### front left
+        pyrosim.Send_Motor_Neuron(name = 11 , jointName = "BackLeg_BackLowerLeg") ### back right
+        pyrosim.Send_Motor_Neuron(name = 12 , jointName = "LeftLeg_LeftLowerLeg") ### back left
+        pyrosim.Send_Motor_Neuron(name = 13 , jointName = "RightLeg_RightLowerLeg") ### front right
+        pyrosim.Send_Motor_Neuron(name = 14 , jointName = "Torso_NeckBase") ### neck base
+        pyrosim.Send_Motor_Neuron(name = 15 , jointName = "NeckBase_NeckArm") ### neck arm
+        pyrosim.Send_Motor_Neuron(name = 16 , jointName = "NeckArm_GrabberCenter") ### grabber center
+        pyrosim.Send_Motor_Neuron(name = 17 , jointName = "GrabberCenter_GrabberRight") ### grabber right
+        pyrosim.Send_Motor_Neuron(name = 18 , jointName = "GrabberCenter_GrabberLeft") ### grabber left
 
         #synapses
         for currentRow in range(0, C.numSensorNeurons):

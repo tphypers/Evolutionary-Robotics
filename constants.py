@@ -9,16 +9,16 @@ GRAVITY = -9.8
 #length of each simulation
 SIM_LENGTH = 1000
 #number of generations
-GENERATIONS = 10
+GENERATIONS = 1
 #population size
-POPULATION_SIZE = 10
+POPULATION_SIZE = 1
 
 
 
 #------Motor control------
 #range of motion
 TAU = 2 * math.pi
-motorJointRange = .5
+motorJointRange = .8
 #amplitude 
 FRONT_AMPLITUDE = math.pi/4
 BACK_AMPLITUDE = math.pi/4
@@ -33,5 +33,5 @@ FRONT_FORCE = 100
 BACK_FORCE = 100
 
 #---BRAIN----
-numSensorNeurons = 4
-numMotorNeurons = 8
+numSensorNeurons = 6
+numMotorNeurons = 13
