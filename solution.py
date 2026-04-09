@@ -10,12 +10,6 @@ class SOLUTION:
         self.weights = np.random.rand(C.numSensorNeurons, C.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         self.myID = ID
-    
-    #def Evaluate(self, directOrGUI):
-        #self.Create_World()
-        #self.Create_Body()
-        #self.Create_Brain()
-        #os.system('start /B python3 simulate.py ' + directOrGUI + ' '+ str(self.myID))
         
     def Wait_For_Simulation_To_End(self):
         fitnessFile = f"fitness{self.myID}.txt"
@@ -47,7 +41,7 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name=f"Box", pos=[-2,-2,.5] , size=[1,1,1])
+        pyrosim.Send_Cube(name=f"Box", pos=[5,0,.5] , size=[1,1,1])
         pyrosim.End()
 
 
