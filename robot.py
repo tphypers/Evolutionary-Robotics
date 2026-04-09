@@ -2,13 +2,18 @@ import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from sensor import SENSOR
 from motor import MOTOR
+import numpy as np
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import constants as C
 
 class ROBOT:
     def __init__(self, solutionID):
+        #block        
+        self.block_trajectory = []
         #robot
+        self.heights = []
+        self.tilts = []
         self.myID = solutionID
         self.robot = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robot)
@@ -19,11 +24,25 @@ class ROBOT:
         os.system('del brain' + str(solutionID) + '.nndf')
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        #stateOfLinkZero = p.getLinkState(self.robot,0)
+        #positionOfLinkZero = stateOfLinkZero[0]
+        #xCoordinateOfLinkZero = positionOfLinkZero[0]
+        #with open("./fitness" + str(self.myID) + ".txt", "w") as f:
+        #    f.write(str(xCoordinateOfLinkZero))
+
+        #get grabber to block
+        stateOfGrabber = p.getLinkState(self.robot,10)
+        positionOfGrabber = stateOfGrabber[0]
+        robot_pos_array = np.array(positionOfGrabber)
+        block_pos_array = np.array(self.block_pos)
+        distance = np.linalg.norm(robot_pos_array - block_pos_array)
+        #keep torso high to prevent falling over
+        avg_height = sum(self.heights) / len(self.heights)
+        #keep torso flat to prevent bucking
+        avg_tilt = sum(self.tilts) / len(self.tilts)
+        fitness = (C.block_distance_weight * -distance) + (C.height_weight * avg_height) - (C.tilt_weight * avg_tilt)
         with open("./fitness" + str(self.myID) + ".txt", "w") as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(fitness))
 
     def prepare_to_sense(self):
         self.sensors = {}
@@ -52,6 +71,18 @@ class ROBOT:
 
     def think(self, step):
         self.nn.Update()
+        #block position recording
+        self.block_pos, block_quat = p.getBasePositionAndOrientation(1) #block bodyID
+        self.block_trajectory.append(self.block_pos)
+        #torso position recording
+        torso_pos, torso_quat = p.getBasePositionAndOrientation(2) #robot bodyID
+        torso_z = torso_pos[2]
+        self.heights.append(torso_z)
+        toso_pos, torso_quat = p.getBasePositionAndOrientation(2)
+        roll, pitch, yaw = p.getEulerFromQuaternion(torso_quat)
+        tilt_penalty = abs(roll) + abs(pitch)
+        self.tilts.append(tilt_penalty)
+
         #self.nn.Print()
 
 
