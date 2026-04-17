@@ -56,11 +56,16 @@ class PARALLEL_HILL_CLIMBER:
             print(f'Parent {i} Fitness: {self.parents[i].fitness:.4f} | Child {i} Fitness: {self.children[i].fitness:.4f}')
 
     def Show_Best(self):
-        best_index = 0
-        for i in self.parents:
-            if self.parents[i].fitness > self.parents[best_index].fitness:
-                best_index = i
-        
-        print(f"Showing Best Robot (ID: {best_index})")
-        self.parents[best_index].Start_Simulation("GUI")
-        self.parents[best_index].Wait_For_Simulation_To_End()
+        again = True
+        while(again):
+            best_index = 0
+            for i in self.parents:
+                if self.parents[i].fitness > self.parents[best_index].fitness:
+                    best_index = i
+            input(f"Press enter to show best robot with fitness of {self.parents[best_index].fitness}")
+            print(f"Showing Best Robot (ID: {best_index})")
+            self.parents[best_index].Start_Simulation("GUI")
+            self.parents[best_index].Wait_For_Simulation_To_End()
+            choice = input("Watch again? (y/n): ").lower().strip()
+            if choice == "n":
+                again = False

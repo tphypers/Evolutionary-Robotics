@@ -41,7 +41,7 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name=f"Box", pos=[5,0,.5] , size=[1,1,1])
+        pyrosim.Send_Cube(name=f"Box", pos=[5,0,.375] , size=[.75,.75,.75])
         pyrosim.End()
 
 

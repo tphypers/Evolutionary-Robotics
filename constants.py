@@ -9,14 +9,15 @@ GRAVITY = -9.8
 #length of each simulation
 SIM_LENGTH = 1000
 #number of generations
-GENERATIONS = 10
+GENERATIONS = 1
 #population size
-POPULATION_SIZE = 10
+POPULATION_SIZE = 1
 
 #Fitness weights
-tilt_weight = .75
+block_height_weight = 10
+tilt_weight = 1
 height_weight = .5
-block_distance_weight = 1
+block_distance_weight = 2
 
 
 
