@@ -9,22 +9,22 @@ GRAVITY = -9.8
 #length of each simulation
 SIM_LENGTH = 1000
 #number of generations
-GENERATIONS = 1
+GENERATIONS = 50
 #population size
-POPULATION_SIZE = 1
+POPULATION_SIZE = 50
 
 #Fitness weights
-block_height_weight = 10
-tilt_weight = 1
+block_height_weight = 1
+tilt_weight = .5
 height_weight = .5
-block_distance_weight = 2
+block_distance_weight = 1
 
 
 
 #------Motor control------
 #range of motion
 TAU = 2 * math.pi
-motorJointRange = .8
+motorJointRange = 1.1
 #amplitude 
 FRONT_AMPLITUDE = math.pi/4
 BACK_AMPLITUDE = math.pi/4

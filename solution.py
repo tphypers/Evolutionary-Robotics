@@ -13,6 +13,8 @@ class SOLUTION:
         
     def Wait_For_Simulation_To_End(self):
         fitnessFile = f"fitness{self.myID}.txt"
+        bodyFile = "body" + str(self.myID) + ".urdf"
+        worldFile = "world"  + str(self.myID) + ".sdf"
         while not os.path.exists(fitnessFile):
             time.sleep(0.01) 
         while os.stat(fitnessFile).st_size == 0:
@@ -24,6 +26,8 @@ class SOLUTION:
                 return self.Wait_For_Simulation_To_End()
             self.fitness = float(content)
         os.system(f"del {fitnessFile}")
+        os.system(f"del {bodyFile}")
+        os.system(f"del {worldFile}")
 
     def Start_Simulation(self, directOrGUI):
         self.Create_World()
@@ -40,13 +44,13 @@ class SOLUTION:
         self.weights[row][column] = random.random() * 2 - 1
 
     def Create_World(self):
-        pyrosim.Start_SDF("world.sdf")
+        pyrosim.Start_SDF("world"  + str(self.myID) + ".sdf")
         pyrosim.Send_Cube(name=f"Box", pos=[5,0,.375] , size=[.75,.75,.75])
         pyrosim.End()
 
 
     def Create_Body(self):
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("body" + str(self.myID) + ".urdf")
         pyrosim.Send_Cube(name=f"Torso", pos=[0,0,1] , size=[2,1,.5])
 
         ### back right

@@ -19,7 +19,7 @@ class ROBOT:
         self.heights = []
         self.tilts = []
         self.myID = solutionID
-        self.robot = p.loadURDF("body.urdf")
+        self.robot = p.loadURDF("body" + solutionID + ".urdf")
         pyrosim.Prepare_To_Simulate(self.robot)
         self.prepare_to_sense()
         self.prepare_to_act()
@@ -30,13 +30,14 @@ class ROBOT:
     def Get_Fitness(self):
         #make block go up.
         avg_block_height = sum(self.block_height) / len(self.block_height)
+        max_block_height = max(self.block_height)
         #get grabber to block quickly and stay
         avg_distance = sum(self.distances) / len(self.distances)
         #keep torso high to prevent falling over
         avg_height = sum(self.heights) / len(self.heights)
         #keep torso flat to prevent bucking
         avg_tilt = sum(self.tilts) / len(self.tilts)
-        fitness = (C.block_distance_weight * -avg_distance) + (C.height_weight * avg_height) - (C.tilt_weight * avg_tilt) + (C.block_height_weight * avg_block_height)
+        fitness = (C.block_distance_weight * -avg_distance) + (C.height_weight * avg_height) - (C.tilt_weight * avg_tilt) + (C.block_height_weight * avg_block_height) + (C.block_height_weight * max_block_height)
         with open("./fitness" + str(self.myID) + ".txt", "w") as f:
             f.write(str(fitness))
 
