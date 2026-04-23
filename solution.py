@@ -45,7 +45,7 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world"  + str(self.myID) + ".sdf")
-        pyrosim.Send_Cube(name=f"Box", pos=[5,0,.375] , size=[.75,.75,.75])
+        pyrosim.Send_Cube(name=f"Box", pos=[5,0,.375] , size=[.65,.65,.65])
         pyrosim.End()
 
 
@@ -65,18 +65,33 @@ class SOLUTION:
         pyrosim.Send_Cube(name=f"LeftLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
         pyrosim.Send_Joint( name = "LeftLeg_LeftLowerLeg" , parent= "LeftLeg" , child = "LeftLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
         
-        ### front left
-        pyrosim.Send_Cube(name=f"FrontLeg", pos=[-.5,0,0] , size=[1,.2,.2])
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
-        pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        if (C.body_type == "A"):
+            ### front left
+            pyrosim.Send_Cube(name=f"FrontLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+            pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")
+            pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
+            pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
         
-        ### front right
-        pyrosim.Send_Cube(name=f"RightLeg", pos=[-.5,0,0] , size=[1,.2,.2])
-        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [1,-.5,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
-        pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+            ### front right
+            pyrosim.Send_Cube(name=f"RightLeg", pos=[-.5,0,0] , size=[1,.2,.2])
+            pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [1,-.5,1], jointAxis = "0 1 0")
+            pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
+            pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+        elif (C.body_type == "B"):
+            ### front left
+            pyrosim.Send_Cube(name=f"FrontLeg", pos=[.5,0,0] , size=[1,.2,.2])
+            pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")
+            pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
+            pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
         
+            ### front right
+            pyrosim.Send_Cube(name=f"RightLeg", pos=[.5,0,0] , size=[1,.2,.2])
+            pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [1,-.5,1], jointAxis = "0 1 0")
+            pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
+            pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
+        else:
+            print("Error: Invalid Body Type")
+            exit
         ### neck base
         pyrosim.Send_Cube(name=f"NeckBase", pos=[0,0,.5], size=[.1,.1,1])
         pyrosim.Send_Joint( name = "Torso_NeckBase" , parent= "Torso" , child = "NeckBase" , type = "revolute", position = [.75, 0, 1], jointAxis = "0 1 1")

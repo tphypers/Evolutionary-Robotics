@@ -4,6 +4,9 @@ import random
 
 #constants
 
+#bot body construction
+body_type = "A" #"B" for flipped legs
+
 #gravity
 GRAVITY = -9.8
 #length of each simulation
@@ -14,17 +17,15 @@ GENERATIONS = 50
 POPULATION_SIZE = 50
 
 #Fitness weights
-block_height_weight = 1
-tilt_weight = .5
+block_height_weight = 1.2
+tilt_weight = 1
 height_weight = .5
 block_distance_weight = 1
-
-
 
 #------Motor control------
 #range of motion
 TAU = 2 * math.pi
-motorJointRange = 1.1
+motorJointRange = .75
 #amplitude 
 FRONT_AMPLITUDE = math.pi/4
 BACK_AMPLITUDE = math.pi/4

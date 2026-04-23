@@ -1,5 +1,6 @@
 # parallelHillClimber.py
 from solution import SOLUTION
+import matplotlib.pyplot as plt
 import constants as C
 import copy
 import os
@@ -8,6 +9,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del fitness*.txt")
         os.system("del brain*.nndf")
+        self.average_fitness_curve = []
         
         self.parents = {}
         self.nextAvailableID = 0
@@ -26,6 +28,12 @@ class PARALLEL_HILL_CLIMBER:
         
         for currentGeneration in range(C.GENERATIONS):
             self.Evolve_For_One_Generation()
+            #fitness tracking
+            total_fit = 0
+            for key in self.parents:
+                total_fit += self.parents[key].fitness
+            avg = total_fit / C.POPULATION_SIZE
+            self.average_fitness_curve.append(avg)
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -69,3 +77,13 @@ class PARALLEL_HILL_CLIMBER:
             choice = input("Watch again? (y/n): ").lower().strip()
             if choice == "n":
                 again = False
+
+    def Show_Fitness_Curve(self):
+        plt.plot(self.average_fitness_curve, label='Average Fitness')
+        plt.title('Evolutionary Progress')
+        plt.xlabel('Generation')
+        plt.ylabel('Fitness')
+        plt.legend()
+    
+        plt.savefig('fitness_curve.png') 
+        plt.show()
