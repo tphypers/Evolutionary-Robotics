@@ -6,7 +6,7 @@ import copy
 import os
 
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, body_type):
         os.system("del fitness*.txt")
         os.system("del brain*.nndf")
         self.average_fitness_curve = []
@@ -14,7 +14,7 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
         for i in range(C.POPULATION_SIZE):
-            self.parents[i] = SOLUTION(self.nextAvailableID)
+            self.parents[i] = SOLUTION(self.nextAvailableID, body_type)
             self.nextAvailableID += 1
 
     def Evaluate(self, solutions):

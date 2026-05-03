@@ -6,10 +6,11 @@ import time
 import constants as C
 
 class SOLUTION:
-    def __init__(self, ID):
+    def __init__(self, ID, body_type):
         self.weights = np.random.rand(C.numSensorNeurons, C.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         self.myID = ID
+        self.body_type = body_type
         
     def Wait_For_Simulation_To_End(self):
         fitnessFile = f"fitness{self.myID}.txt"
@@ -65,7 +66,7 @@ class SOLUTION:
         pyrosim.Send_Cube(name=f"LeftLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
         pyrosim.Send_Joint( name = "LeftLeg_LeftLowerLeg" , parent= "LeftLeg" , child = "LeftLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
         
-        if (C.body_type == "A"):
+        if (self.body_type == "A"):
             ### front left
             pyrosim.Send_Cube(name=f"FrontLeg", pos=[-.5,0,0] , size=[1,.2,.2])
             pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")
@@ -77,7 +78,7 @@ class SOLUTION:
             pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [1,-.5,1], jointAxis = "0 1 0")
             pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0,0,-.5] , size=[.2,.2,1])
             pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg" , parent= "RightLeg" , child = "RightLowerLeg" , type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
-        elif (C.body_type == "B"):
+        elif (self.body_type == "B"):
             ### front left
             pyrosim.Send_Cube(name=f"FrontLeg", pos=[.5,0,0] , size=[1,.2,.2])
             pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,.5,1], jointAxis = "0 1 0")

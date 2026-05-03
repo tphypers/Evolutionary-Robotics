@@ -5,16 +5,16 @@ import random
 #constants
 
 #bot body construction
-body_type = "A" #"B" for flipped legs
+#body_type = "A" #"B" for flipped legs
 
 #gravity
 GRAVITY = -9.8
 #length of each simulation
 SIM_LENGTH = 1000
 #number of generations
-GENERATIONS = 50
+GENERATIONS = 20
 #population size
-POPULATION_SIZE = 50
+POPULATION_SIZE = 20
 
 #Fitness weights
 block_height_weight = 1.2
